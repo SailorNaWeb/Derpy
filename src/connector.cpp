@@ -1,3 +1,5 @@
+// NOTE: This file is only for testing the socket
+
 #include <iostream>
 
 #ifdef _WIN32
@@ -31,20 +33,15 @@ int main() {
 #ifdef _WIN32
     startWinBs();
 #endif
-
+    
     int status;
     struct addrinfo hints;
     struct addrinfo *servinfo;
 
     memset(&hints, 0, sizeof hints);
-    hints.ai_family = AF_UNSPEC;     // Ipv4 ou ipv6
-    hints.ai_socktype = SOCK_STREAM; // Define como sockete TCP 
-    hints.ai_flags = AI_PASSIVE;     // Preenche o ip automagicamente
-    
-    if ((status = getaddrinfo(NULL, "3490", &hints, &servinfo)) != 0) {
-	fprintf(stderr, "ERRO: %s\n", gai_strerror(status));
-	return 1;
-    }
+    hints.ai_family = AF_UNSPEC;     
+    hints.ai_socktype = SOCK_STREAM; 
 
-    freeaddrinfo(servinfo);
+    // conecta
+    status = getaddrinfo("localhost", "3490", &hints, &servinfo);
 }
